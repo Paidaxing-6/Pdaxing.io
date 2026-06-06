@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>演艺外卖 · 校园服务系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,sans-serif}
+        body{background:#2a2a2a}
+        .app{max-width:1200px;margin:0 auto;background:#f2f2f2;min-height:100vh;display:flex;flex-direction:column}
+        .gate-banner{background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('./大门.jpg');background-size:cover;background-position:center 30%;height:180px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px;border-radius:0 0 32px 32px}
+        .gate-banner h2{background:rgba(0,0,0,.7);padding:8px 20px;border-radius:40px;color:#ffb347;font-size:1.2rem;letter-spacing:2px;backdrop-filter:blur(4px)}
+        .navbar{background:#2c2c2c;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:12px 28px;border-bottom:2px solid #ffa41b;position:sticky;top:0;z-index:99}
+        .logo{color:#ffa41b;font-weight:700;font-size:1.4rem}
+        .logo small{font-size:.7rem;color:#bbb;display:block}
+        .nav-links{display:flex;gap:1.8rem;list-style:none}
+        .nav-links li{color:#e0e0e0;cursor:pointer;font-weight:500;padding:6px 0;border-bottom:2px solid transparent}
+        .nav-links li i{margin-right:6px}
+        .nav-links li.active,.nav-links li:hover{color:#ffa41b;border-bottom-color:#ffa41b}
+        .main{flex:1;padding:24px 28px;background:#ececec}
+        .page{display:none}
+        .active-page{display:block}
+        .card{background:#fff;border-radius:24px;padding:18px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+        .section-title{font-size:1.3rem;margin-bottom:16px;border-left:5px solid #ffa41b;padding-left:12px}
+        .store-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+        .store-item{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+        .store-img{height:140px;overflow:hidden;background:#e2dfd7;display:flex;align-items:center;justify-content:center}
+        .store-img img{width:100%;height:100%;object-fit:cover}
+        .store-info{padding:12px}
+        .store-info h3{font-size:1.1rem}
+        .store-info p{font-size:.75rem;color:#6b6b6b;margin:5px 0}
+        .order-now-btn{background:#2c2c2c;border:none;color:#fff;padding:5px 12px;border-radius:30px;font-size:.7rem;cursor:pointer;margin-top:8px}
+        .order-now-btn:hover{background:#ffa41b;color:#1e1e1e}
+        .order-layout{display:flex;flex-wrap:wrap;gap:24px}
+        .menu-panel{flex:2;min-width:240px}
+        .cart-panel{flex:1.2;min-width:240px;background:#fff;border-radius:28px;padding:18px;position:sticky;top:100px;height:fit-content}
+        .store-selector{margin-bottom:20px}
+        .store-selector select{padding:8px 16px;border-radius:40px;border:1px solid #ccc;background:#fff;font-weight:500}
+        .menu-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #ececec}
+        .price{color:#e67e22;font-weight:700}
+        .add-btn{background:#2c2c2c;border:none;color:#fff;padding:4px 16px;border-radius:40px;cursor:pointer}
+        .cart-item{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:12px}
+        .cart-total{font-weight:700;border-top:1px solid #ccc;margin-top:10px;padding-top:10px}
+        .submit-order{background:#ffa41b;width:100%;border:none;padding:10px;border-radius:40px;font-weight:700;margin-top:16px;cursor:pointer}
+        .remove-item{background:0 0;border:none;color:#c0392b;cursor:pointer}
+        .review-list .review{background:#f9f9f9;border-radius:20px;padding:12px;margin-bottom:12px}
+        .stars{color:#f5b042}
+        .add-review input,.add-review select,.add-review textarea{width:100%;padding:8px 12px;margin:8px 0;border-radius:50px;border:1px solid #ccc}
+        .add-review textarea{border-radius:20px}
+        .btn-submit{background:#2c2c2c;color:#fff;border:none;padding:8px 16px;border-radius:30px;cursor:pointer}
+        footer{background:#2c2c2c;text-align:center;color:#aaa;padding:12px;font-size:.7rem}
+        @media (max-width:700px){.navbar{flex-direction:column;gap:8px}.main{padding:16px}}
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="gate-banner"><h2><i class="fas fa-university"></i> 广西演艺职业学院 · 志存高远 德艺双馨</h2></div>
+    <div class="navbar">
+        <div class="logo">🍜 演艺外卖 <small>校园专送·安心直达</small></div>
+        <ul class="nav-links">
+            <li data-page="home" class="active"><i class="fas fa-home"></i> 首页</li>
+            <li data-page="stores"><i class="fas fa-store"></i> 店铺</li>
+            <li data-page="order"><i class="fas fa-bag-shopping"></i> 下单</li>
+            <li data-page="reviews"><i class="fas fa-star"></i> 评价</li>
+        </ul>
+    </div>
+    <div class="main">
+        <div id="homePage" class="page active-page">
+            <div class="card"><div class="section-title"><i class="fas fa-utensils"></i> 今日推荐 · 演艺风味</div><div class="store-grid" id="hotStores"></div></div>
+            <div class="card"><p><i class="fas fa-map-marker-alt"></i> 校内免配送费 | 宿舍楼下自取 | 10:00-21:30</p><p>🔥 热门单品: 爱民螺蛳粉8.5元、隆江猪脚饭15元、潘记老友粉9.5元</p></div>
+        </div>
+        <div id="storesPage" class="page"><div class="section-title"><i class="fas fa-list-ul"></i> 全部食堂/商家</div><div class="store-grid" id="allStores"></div></div>
+        <div id="orderPage" class="page"><div class="order-layout"><div class="menu-panel card"><div class="store-selector"><label><i class="fas fa-store"></i> 切换店铺：</label><select id="storeSelect"></select></div><div id="menuContainer"><div style="text-align:center;padding:20px;">请选择店铺</div></div></div><div class="cart-panel"><h4><i class="fas fa-cart-shopping"></i> 我的餐篮</h4><div id="cartList">暂无商品</div><div id="cartTotal" class="cart-total">总计: ¥0</div><button id="confirmOrderBtn" class="submit-order"><i class="fas fa-check"></i> 确认下单</button></div></div></div>
+        <div id="reviewsPage" class="page"><div class="section-title"><i class="fas fa-comment"></i> 同学真实评价</div><div id="reviewList" class="review-list"></div><div class="card add-review"><h4>发表你的吃货体验</h4><input type="text" id="reviewerName" placeholder="昵称" value="演艺学子"><select id="reviewStars"><option value="5">★★★★★ 5星</option><option value="4">★★★★☆ 4星</option><option value="3">★★★☆☆ 3星</option><option value="2">★★☆☆☆ 2星</option><option value="1">★☆☆☆☆ 1星</option></select><textarea id="reviewContent" rows="2" placeholder="分享你的美食瞬间..."></textarea><button id="publishReviewBtn" class="btn-submit">✍️ 提交评价</button></div></div>
+    </div>
+    <footer>© 广西演艺职业学院 · 校园外卖服务系统 | 舌尖上的演艺，安心每一餐</footer>
+</div>
+<script>
+    const stores=[{id:"aimin",name:"爱民螺蛳粉",img:"./爱民.png",desc:"原味8.5元 | 酸辣鲜香",tag:"螺蛳粉·柳州风味"},{id:"changfen",name:"肠粉粥铺",img:"./肠粉粥.png",desc:"鸡蛋瘦肉肠粉/皮蛋粥",tag:"广式肠粉·养生粥"},{id:"longjiang",name:"隆江猪脚饭·滑蛋饭",img:"./隆江猪脚饭-露小厨滑蛋饭.png",desc:"招牌猪脚饭/滑蛋饭",tag:"肥而不腻 滑蛋嫩滑"},{id:"panji",name:"潘记老友粉",img:"./潘记.png",desc:"老友鲜肉/牛肉粉",tag:"老友风味 酸辣开胃"},{id:"youxian",name:"优鲜果饮",img:"./优鲜.png",desc:"鲜榨果汁/芒果奶昔",tag:"新鲜水果 低卡"},{id:"liuzhou",name:"螺森林·螺蛳粉",img:"./柳州螺蛳粉.png",desc:"大骨熬汤",tag:"柳州螺蛳粉"},{id:"chongqing",name:"重庆小面",img:"./重庆小面.png",desc:"麻辣鲜香豌杂面",tag:"重庆风味"}];
+    const menus={aimin:[["传统原味螺蛳粉",8.5],["真味干烧螺蛳粉",10.5],["经典肉螺粉",12],["香辣猪肺螺蛳粉",11.5]],changfen:[["鸡蛋瘦肉肠粉",10],["玉米碎肉肠粉",9],["皮蛋瘦肉粥",9],["猪杂粥",10],["卷筒粉(豆角肉)",4]],longjiang:[["招牌隆江猪脚饭",15],["奥尔良鸡腿滑蛋饭",13],["手撕鸡滑蛋饭",13],["黑椒肉柳滑蛋饭",13],["肥牛滑蛋饭",14]],panji:[["老友鲜肉粉",9.5],["老友牛肉粉",10.5],["生料三鲜粉",9.5],["老友干锅粉",9.5],["白灼牛肉粉",12]],youxian:[["芒果奶昔",12],["鲜榨橙汁",10],["草莓冰沙",13],["百香果柠檬茶",9]],liuzhou:[["经典螺蛳粉",9],["叉烧螺蛳粉",12],["炸蛋螺蛳粉",11],["螺肉多多螺蛳粉",14]],chongqing:[["重庆小面(汤)",10],["豌杂面",12],["红烧牛肉面",15],["酸辣粉",9]]};
+    let cart=[],reviews=[{name:"爱吃螺蛳粉的圆圆",score:5,text:"爱民螺蛳粉yyds，酸笋巨香！",date:"06-02"},{name:"干饭永动机",score:4,text:"隆江猪脚饭份量足，卤汁拌饭绝了",date:"06-03"},{name:"广州胃",score:5,text:"肠粉很滑，皮蛋瘦肉粥绵密",date:"06-01"}];
+    function renderCards(c,list,hot){c.innerHTML=list.map(s=>`<div class="store-item"><div class="store-img"><img src="${s.img}" alt="${s.name}"></div><div class="store-info"><h3>${s.name}</h3><p>${hot?s.desc:s.tag}</p><button class="order-now-btn" data-id="${s.id}">${hot?'立即点餐 →':'进店选购'}</button></div></div>`).join('');document.querySelectorAll(`#${c.id} .order-now-btn`).forEach(btn=>btn.onclick=()=>goOrder(btn.dataset.id));}
+    function goOrder(id){document.querySelector('[data-page="order"]').click();setTimeout(()=>{let s=document.getElementById('storeSelect');if(s){s.value=id;renderMenu(id);updateCart();}},30);}
+    function renderMenu(id){let items=menus[id],store=stores.find(s=>s.id===id);document.getElementById('menuContainer').innerHTML=`<h4 style="margin-bottom:10px;">🍽️ ${store.name} 菜单</h4>`+items.map(i=>`<div class="menu-item"><div><b>${i[0]}</b><div class="price">¥${i[1].toFixed(2)}</div></div><button class="add-btn" data-name="${i[0]}" data-price="${i[1]}">+ 加入</button></div>`).join('');document.querySelectorAll('.add-btn').forEach(btn=>btn.onclick=()=>addToCart(id,store.name,btn.dataset.name,parseFloat(btn.dataset.price)));}
+    function addToCart(sid,sname,name,price){if(cart.length&&cart[0].storeId!==sid){alert(`餐篮已有「${cart[0].storeName}」菜品，不同商家请分开下单`);return;}let e=cart.find(i=>i.name===name);e?e.qty++:cart.push({storeId:sid,storeName:sname,name,price,qty:1});updateCart();}
+    function updateCart(){let div=document.getElementById('cartList'),tot=document.getElementById('cartTotal');if(!cart.length){div.innerHTML='🛒 空空如也';tot.innerText='总计: ¥0';return;}let total=0,html='';cart.forEach((item,i)=>{let sub=item.price*item.qty;total+=sub;html+=`<div class="cart-item"><div><strong>${item.name}</strong> x${item.qty}<br><small>${item.storeName}</small></div><div>¥${sub.toFixed(2)} <button class="remove-item" data-index="${i}"><i class="fas fa-trash"></i></button></div></div>`;});div.innerHTML=html;tot.innerText=`总计: ¥${total.toFixed(2)}`;document.querySelectorAll('.remove-item').forEach(btn=>btn.onclick=()=>{cart.splice(parseInt(btn.dataset.index),1);updateCart();});}
+    function renderReviews(){let c=document.getElementById('reviewList');if(!reviews.length){c.innerHTML='<div class="card">暂无评价，成为第一个点评的人～</div>';return;}c.innerHTML=reviews.map(r=>`<div class="review"><div><strong>${r.name}</strong> <span class="stars">${'★'.repeat(r.score)}${'☆'.repeat(5-r.score)}</span> <span style="font-size:12px;color:#888;">${r.date}</span></div><div>“${r.text}”</div></div>`).join('');}
+    window.onload=()=>{renderCards(document.getElementById('hotStores'),stores.slice(0,4),!0);renderCards(document.getElementById('allStores'),stores,!1);let sel=document.getElementById('storeSelect');sel.innerHTML='<option value="">-- 选店铺 --</option>'+stores.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');sel.onchange=()=>sel.value&&renderMenu(sel.value);if(stores.length){sel.value=stores[0].id;renderMenu(stores[0].id);}renderReviews();updateCart();document.querySelectorAll('.nav-links li').forEach(link=>{link.onclick=()=>{let p=link.dataset.page;document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active-page'));document.getElementById(p+'Page').classList.add('active-page');document.querySelectorAll('.nav-links li').forEach(l=>l.classList.remove('active'));link.classList.add('active');if(p==='order'){updateCart();if(sel.value)renderMenu(sel.value);}if(p==='reviews')renderReviews();if(p==='stores')renderCards(document.getElementById('allStores'),stores,!1);if(p==='home')renderCards(document.getElementById('hotStores'),stores.slice(0,4),!0);};});document.getElementById('confirmOrderBtn').onclick=()=>{if(!cart.length){alert("请先加点美食～");return;}let total=cart.reduce((s,i)=>s+i.price*i.qty,0);alert(`🎉 订单提交！\n商家：${cart[0].storeName}\n总金额：¥${total.toFixed(2)}\n宿舍楼下自提，感谢支持！`);cart=[];updateCart();};document.getElementById('publishReviewBtn').onclick=()=>{let name=document.getElementById('reviewerName').value.trim(),score=parseInt(document.getElementById('reviewStars').value),text=document.getElementById('reviewContent').value.trim();if(!name||!text){alert("请填写昵称和评价~");return;}reviews.unshift({name,score,text,date:new Date().toLocaleDateString().slice(5)});renderReviews();document.getElementById('reviewContent').value='';alert("评价已发布！");};};
+</script>
+</body>
+</html>
